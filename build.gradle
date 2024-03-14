@@ -1,14 +1,14 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.2.3'
-	id 'io.spring.dependency-management' version '1.1.4'
+	id 'org.springframework.boot' version '2.7.1'
+	id 'io.spring.dependency-management' version '1.1.0'
 }
 
 group = 'com'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '17'
+	sourceCompatibility = '11'
 }
 
 repositories {
@@ -18,7 +18,12 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'com.box:box-java-sdk:4.8.0'
+	implementation('com.box:box-java-sdk:4.0.0') {
+		exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
+		exclude group: 'org.bouncycastle', module: 'bcpkix-jdk15on'
+	}
+	runtimeOnly('org.bouncycastle:bcprov-jdk15on:1.58')
+	runtimeOnly('org.bouncycastle:bcpkix-jdk15on:1.58')
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
